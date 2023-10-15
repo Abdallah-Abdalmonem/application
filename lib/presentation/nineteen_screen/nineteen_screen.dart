@@ -15,7 +15,9 @@ import '../../constants/appcolor.dart';
 import '../../constants/image_constant.dart';
 import '../../models/chemistry_model.dart';
 import '../../models/hematology_model.dart';
+import '../../models/row_model.dart';
 import '../../widgets/test.dart';
+import '../twenty_screen/twenty_screen.dart';
 
 class NineteenScreen extends StatefulWidget {
   NineteenScreen({Key? key}) : super(key: key);
@@ -27,19 +29,19 @@ class NineteenScreen extends StatefulWidget {
 class _NineteenScreenState extends State<NineteenScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController tempController = TextEditingController();
-  TextEditingController _hematologyController1 = TextEditingController();
-  TextEditingController _hematologyController2 = TextEditingController();
-  TextEditingController _hematologyController3 = TextEditingController();
-  TextEditingController _hematologyController4 = TextEditingController();
-  TextEditingController _hematologyController5 = TextEditingController();
-  TextEditingController _hematologyController6 = TextEditingController();
+  final TextEditingController _hematologyController1 = TextEditingController();
+  final TextEditingController _hematologyController2 = TextEditingController();
+  final TextEditingController _hematologyController3 = TextEditingController();
+  final TextEditingController _hematologyController4 = TextEditingController();
+  final TextEditingController _hematologyController5 = TextEditingController();
+  final TextEditingController _hematologyController6 = TextEditingController();
 
   DateTime? selectedDate;
   TextEditingController typeOfEchoController = TextEditingController();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  HematologyModel? _hematologyModel = HematologyModel(
+  final HematologyModel? _hematologyModel = HematologyModel(
       HBIsEnable: false,
       CRPIsEnable: false,
       ESRIsEnable: false,
@@ -47,18 +49,26 @@ class _NineteenScreenState extends State<NineteenScreen> {
       ReticuloeytesIsEnable: false,
       TLCIsEnable: false);
 
-  CoagulationModel _coagulationModel = CoagulationModel(
+  final CoagulationModel _coagulationModel = CoagulationModel(
     PCIsEnable: false,
     PTIsEnable: false,
     LNRIsEnable: false,
   );
 
-  ChemistryModel _chemistryModel = ChemistryModel(
+  final ChemistryModel _chemistryModel = ChemistryModel(
     CKIsEnable: false,
     CholesterolISEnable: false,
     RBSEnable: false,
     TGsISEnable: false,
   );
+  List<CustomModel> itemModel = [
+    CustomModel(text: 'HB'),
+    CustomModel(text: 'TLC'),
+    CustomModel(text: 'ESR'),
+    CustomModel(text: 'CRP'),
+    CustomModel(text: 'HReticuloeytes'),
+    CustomModel(text: 'Lymph'),
+  ];
 
   File? fileImage;
   var picker = ImagePicker();
@@ -87,7 +97,15 @@ class _NineteenScreenState extends State<NineteenScreen> {
           onTap: () {
             setState(() {
               _hematologyModel!.HBIsEnable = !_hematologyModel!.HBIsEnable;
+              itemModel[0].isSelected = _hematologyModel!.HBIsEnable;
+              if (!_hematologyModel!.LymphIsEnable) {
+                _hematologyController1.clear();
+                itemModel[0].prority = 0;
+              }
             });
+          },
+          onChange: (text) {
+            itemModel[0].prority = text as int;
           },
           isEnable: _hematologyModel!.HBIsEnable,
           controller: _hematologyController1,
@@ -97,7 +115,15 @@ class _NineteenScreenState extends State<NineteenScreen> {
           onTap: () {
             setState(() {
               _hematologyModel!.TLCIsEnable = !_hematologyModel!.TLCIsEnable;
+              itemModel[1].isSelected = _hematologyModel!.TLCIsEnable;
+              if (!_hematologyModel!.LymphIsEnable) {
+                _hematologyController2.clear();
+                itemModel[1].prority = 0;
+              }
             });
+          },
+          onChange: (text) {
+            itemModel[1].prority = text as int;
           },
           isEnable: _hematologyModel!.TLCIsEnable,
           controller: _hematologyController2,
@@ -107,7 +133,15 @@ class _NineteenScreenState extends State<NineteenScreen> {
           onTap: () {
             setState(() {
               _hematologyModel!.ESRIsEnable = !_hematologyModel!.ESRIsEnable;
+              itemModel[2].isSelected = _hematologyModel!.ESRIsEnable;
+              if (!_hematologyModel!.LymphIsEnable) {
+                _hematologyController3.clear();
+                itemModel[2].prority = 0;
+              }
             });
+          },
+          onChange: (text) {
+            itemModel[2].prority = text as int;
           },
           isEnable: _hematologyModel!.ESRIsEnable,
           controller: _hematologyController3,
@@ -117,7 +151,15 @@ class _NineteenScreenState extends State<NineteenScreen> {
           onTap: () {
             setState(() {
               _hematologyModel!.CRPIsEnable = !_hematologyModel!.CRPIsEnable;
+              itemModel[3].isSelected = _hematologyModel!.CRPIsEnable;
+              if (!_hematologyModel!.LymphIsEnable) {
+                _hematologyController4.clear();
+                itemModel[3].prority = 0;
+              }
             });
+          },
+          onChange: (text) {
+            itemModel[3].prority = text as int;
           },
           isEnable: _hematologyModel!.CRPIsEnable,
           controller: _hematologyController4,
@@ -128,7 +170,15 @@ class _NineteenScreenState extends State<NineteenScreen> {
             setState(() {
               _hematologyModel!.ReticuloeytesIsEnable =
                   !_hematologyModel!.ReticuloeytesIsEnable;
+              itemModel[4].isSelected = _hematologyModel!.ReticuloeytesIsEnable;
+              if (!_hematologyModel!.LymphIsEnable) {
+                _hematologyController5.clear();
+                itemModel[4].prority = 0;
+              }
             });
+          },
+          onChange: (text) {
+            itemModel[4].prority = text as int;
           },
           isEnable: _hematologyModel!.ReticuloeytesIsEnable,
           controller: _hematologyController5,
@@ -139,7 +189,16 @@ class _NineteenScreenState extends State<NineteenScreen> {
             setState(() {
               _hematologyModel!.LymphIsEnable =
                   !_hematologyModel!.LymphIsEnable;
+
+              itemModel[5].isSelected = _hematologyModel!.LymphIsEnable;
+              if (!_hematologyModel!.LymphIsEnable) {
+                _hematologyController6.clear();
+                itemModel[5].prority = 0;
+              }
             });
+          },
+          onChange: (text) {
+            itemModel[5].prority = text as int;
           },
           isEnable: _hematologyModel!.LymphIsEnable,
           controller: _hematologyController6,
@@ -414,17 +473,23 @@ class _NineteenScreenState extends State<NineteenScreen> {
                       children: [
                         CustomButton(
                           onPress: () {
-                            Navigator.of(context).pushNamed(
-                              AppRoutes.twentyScreen,
-                              arguments: {
-                                'name': nameController.text.toString(),
-                                'date': selectedDate.toString(),
-                                'hematology': _hematologyModel,
-                                'coagulation': _coagulationModel,
-                                'chemistry': _chemistryModel,
-                                'fileImage': fileImage,
-                              },
-                            );
+                            // Navigator.of(context).pushNamed(
+                            //   AppRoutes.twentyScreen,
+                            //   arguments: {
+                            //     'name': nameController.text.toString(),
+                            //     'date': selectedDate.toString(),
+                            //     'hematology': _hematologyModel,
+                            //     'coagulation': _coagulationModel,
+                            //     'chemistry': _chemistryModel,
+                            //     'fileImage': fileImage,
+                            //   },
+                            // );
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => TwentyScreen(
+                                OrderedList: reorderList(itemModel),
+                              ),
+                            ));
                           },
                           title: 'Send',
                         ),
@@ -447,4 +512,17 @@ class _NineteenScreenState extends State<NineteenScreen> {
       ),
     );
   }
+}
+
+List<CustomModel> reorderList(List<CustomModel> list) {
+  List<CustomModel> OrderedList = [];
+  OrderedList[0] = list[0];
+  for (int i = 0; i < list.length; i++) {
+    for (int j = 0; j < list.length; j++) {
+      if (OrderedList[i].prority <= list[j].prority) {
+        OrderedList[i] = list[j];
+      }
+    }
+  }
+  return OrderedList;
 }

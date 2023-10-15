@@ -37,6 +37,7 @@ Widget CustomTableRow(
         height: 20,
         width: MediaQuery.of(context).size.width / 8,
         child: TextFormField(
+          
           showCursor: false,
           style: const TextStyle(color: Colors.black),
           controller: controller,

@@ -9,10 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import '../../constants/appcolor.dart';
 import '../../constants/image_constant.dart';
 import '../../models/hematology_model.dart';
+import '../../models/row_model.dart';
 import '../../widgets/test.dart';
 
 class TwentyScreen extends StatefulWidget {
-  TwentyScreen({Key? key}) : super(key: key);
+  List<CustomModel> OrderedList;
+   TwentyScreen({Key? key , required this.OrderedList}) : super(key: key);
 
   @override
   State<TwentyScreen> createState() => _TwentyScreenState();
