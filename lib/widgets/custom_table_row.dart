@@ -55,3 +55,40 @@ Widget CustomTableRow(
     ],
   );
 }
+
+Widget CustomTableRowForTwentyScreen(
+    {required String title,
+    required bool isEnable,
+    required String priority,
+    required BuildContext context}) {
+  return Row(
+    children: [
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 3,
+        child: Text(
+          title,
+          textScaleFactor: 1.2,
+        ),
+      ),
+      const Spacer(),
+      CircleAvatar(
+        radius: 10,
+        backgroundColor: isEnable ? AppColor.colorEnable : Colors.white,
+      ),
+      const Spacer(),
+      Container(
+          margin: const EdgeInsets.only(right: 10),
+          child: const FittedBox(
+              alignment: AlignmentDirectional.center, child: Text('priority'))),
+      Container(
+        decoration: BoxDecoration(color: Colors.white),
+        height: 20,
+        width: MediaQuery.of(context).size.width / 8,
+        child: Text(
+          priority,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ],
+  );
+}

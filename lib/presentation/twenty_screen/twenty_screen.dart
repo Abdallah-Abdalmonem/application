@@ -33,57 +33,52 @@ class _TwentyScreenState extends State<TwentyScreen> {
     Map<String, dynamic> data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    HematologyModel _hematology = data['hematology'];
-    CoagulationModel _coagulationModel = data['coagulation'];
-    ChemistryModel _chemistryModel = data['chemistry'];
+    // HematologyModel _hematology = data['hematology'];
+    // CoagulationModel _coagulationModel = data['coagulation'];
+    // ChemistryModel _chemistryModel = data['chemistry'];
     File? fileImage = data['fileImage'];
     String name = data['name'];
     String date = data['date'];
     List<CustomModel> list = data['list'];
     List hematologyList = [
-      CustomTableRow(
-          title: list[0].text,
-          onTap: () {},
-          isEnable: list[0].isSelected,
-          controller: nameController,
-          readOnly: true,
-          context: context),
-      CustomTableRow(
-          readOnly: true,
-          title: list[1].text,
-          onTap: () {},
-          isEnable: list[1].isSelected,
-          controller: nameController,
-          context: context),
-      CustomTableRow(
-          readOnly: true,
-          title: list[2].text,
-          onTap: () {},
-          isEnable: list[2].isSelected,
-          controller: nameController,
-          context: context),
-      CustomTableRow(
-          title: list[3].text,
-          readOnly: true,
-          onTap: () {},
-          isEnable: list[3].isSelected,
-          controller: nameController,
-          context: context),
-      CustomTableRow(
-          readOnly: true,
-          title: list[4].text,
-          onTap: () {},
-          isEnable: list[4].isSelected,
-          controller: nameController,
-          context: context),
-      CustomTableRow(
-          readOnly: true,
-          title: list[5].text,
-          onTap: () {},
-          isEnable: list[5].isSelected,
-          controller: nameController,
-          context: context),
+      CustomTableRowForTwentyScreen(
+        title: list[0].text,
+        isEnable: list[0].isSelected,
+        priority: list[0].prority.toString(),
+        context: context,
+      ),
+      CustomTableRowForTwentyScreen(
+        title: list[1].text,
+        isEnable: list[1].isSelected,
+        priority: list[1].prority.toString(),
+        context: context,
+      ),
+      CustomTableRowForTwentyScreen(
+        title: list[2].text,
+        isEnable: list[2].isSelected,
+        priority: list[2].prority.toString(),
+        context: context,
+      ),
+      CustomTableRowForTwentyScreen(
+        title: list[3].text,
+        isEnable: list[3].isSelected,
+        priority: list[3].prority.toString(),
+        context: context,
+      ),
+      CustomTableRowForTwentyScreen(
+        title: list[4].text,
+        isEnable: list[4].isSelected,
+        priority: list[4].prority.toString(),
+        context: context,
+      ),
+      CustomTableRowForTwentyScreen(
+        title: list[5].text,
+        isEnable: list[5].isSelected,
+        priority: list[5].prority.toString(),
+        context: context,
+      ),
     ];
+    /*
     List coagulationList = [
       CustomTableRow(
           title: 'RBS',
@@ -130,7 +125,7 @@ class _TwentyScreenState extends State<TwentyScreen> {
           controller: nameController,
           context: context),
     ];
-
+*/
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -203,7 +198,7 @@ class _TwentyScreenState extends State<TwentyScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    CustomTableContiner(
+                    /*       CustomTableContiner(
                         categoryName: 'Chemistry',
                         table: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -221,6 +216,7 @@ class _TwentyScreenState extends State<TwentyScreen> {
                         itemBuilder: (context, index) => coagulationList[index],
                       ),
                     ),
+
                     const SizedBox(height: 10),
                     const Align(
                       alignment: AlignmentDirectional.centerStart,
@@ -229,6 +225,7 @@ class _TwentyScreenState extends State<TwentyScreen> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
+                    */
                     Container(
                       decoration: BoxDecoration(
                           color: AppColor.continerColor,
