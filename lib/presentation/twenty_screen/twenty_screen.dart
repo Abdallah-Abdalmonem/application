@@ -4,17 +4,15 @@ import 'package:application/models/chemistry_model.dart';
 import 'package:application/models/coagulation.dart.dart';
 import 'package:application/widgets/custom_table_continer.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../../constants/appcolor.dart';
-import '../../constants/image_constant.dart';
+import '../../constants/constant/appcolor.dart';
+import '../../constants/constant/image_constant.dart';
 import '../../models/hematology_model.dart';
 import '../../models/row_model.dart';
-import '../../widgets/test.dart';
+import '../../widgets/custom_table_row.dart';
 
 class TwentyScreen extends StatefulWidget {
-  List<CustomModel> OrderedList;
-   TwentyScreen({Key? key , required this.OrderedList}) : super(key: key);
+  TwentyScreen({Key? key}) : super(key: key);
 
   @override
   State<TwentyScreen> createState() => _TwentyScreenState();
@@ -41,48 +39,48 @@ class _TwentyScreenState extends State<TwentyScreen> {
     File? fileImage = data['fileImage'];
     String name = data['name'];
     String date = data['date'];
-
+    List<CustomModel> list = data['list'];
     List hematologyList = [
       CustomTableRow(
-          title: 'HB',
+          title: list[0].text,
           onTap: () {},
-          isEnable: _hematology.HBIsEnable,
+          isEnable: list[0].isSelected,
           controller: nameController,
           readOnly: true,
           context: context),
       CustomTableRow(
           readOnly: true,
-          title: 'TLC',
+          title: list[1].text,
           onTap: () {},
-          isEnable: _hematology.TLCIsEnable,
+          isEnable: list[1].isSelected,
           controller: nameController,
           context: context),
       CustomTableRow(
           readOnly: true,
-          title: 'ESR',
+          title: list[2].text,
           onTap: () {},
-          isEnable: _hematology.ESRIsEnable,
+          isEnable: list[2].isSelected,
           controller: nameController,
           context: context),
       CustomTableRow(
-          title: 'CRP',
+          title: list[3].text,
           readOnly: true,
           onTap: () {},
-          isEnable: _hematology.CRPIsEnable,
-          controller: nameController,
-          context: context),
-      CustomTableRow(
-          readOnly: true,
-          title: 'Reticuloeytes',
-          onTap: () {},
-          isEnable: _hematology.ReticuloeytesIsEnable,
+          isEnable: list[3].isSelected,
           controller: nameController,
           context: context),
       CustomTableRow(
           readOnly: true,
-          title: 'Lymph',
+          title: list[4].text,
           onTap: () {},
-          isEnable: _hematology.LymphIsEnable,
+          isEnable: list[4].isSelected,
+          controller: nameController,
+          context: context),
+      CustomTableRow(
+          readOnly: true,
+          title: list[5].text,
+          onTap: () {},
+          isEnable: list[5].isSelected,
           controller: nameController,
           context: context),
     ];
@@ -210,9 +208,8 @@ class _TwentyScreenState extends State<TwentyScreen> {
                         table: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: hematologyList.length,
-                          itemBuilder: (context, index) =>
-                              hematologyList[index],
+                          itemCount: chemistryList.length,
+                          itemBuilder: (context, index) => chemistryList[index],
                         )),
                     const SizedBox(height: 20),
                     CustomTableContiner(

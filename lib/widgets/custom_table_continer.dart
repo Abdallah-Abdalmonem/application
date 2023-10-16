@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../constants/appcolor.dart';
+import '../constants/constant/appcolor.dart';
 
 Container CustomTableContiner(
     {required String categoryName, required Widget table}) {

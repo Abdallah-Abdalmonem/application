@@ -1,22 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:application/models/coagulation.dart.dart';
-import 'package:application/constants/routes/app_routes.dart';
-import 'package:application/widgets/custom_button.dart';
-import 'package:application/widgets/custom_table_continer.dart';
-import 'package:application/widgets/custom_table_row.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:application/widgets/custom_text_form_field.dart';
-
-import '../../constants/appcolor.dart';
-import '../../constants/image_constant.dart';
+import '../../constants/constant/appcolor.dart';
+import '../../constants/constant/image_constant.dart';
+import '../../constants/routes/app_routes.dart';
 import '../../models/chemistry_model.dart';
+import '../../models/coagulation.dart.dart';
 import '../../models/hematology_model.dart';
 import '../../models/row_model.dart';
-import '../../widgets/test.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_table_continer.dart';
+import '../../widgets/custom_table_row.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../twenty_screen/twenty_screen.dart';
 
 class NineteenScreen extends StatefulWidget {
@@ -61,12 +58,13 @@ class _NineteenScreenState extends State<NineteenScreen> {
     RBSEnable: false,
     TGsISEnable: false,
   );
+
   List<CustomModel> itemModel = [
     CustomModel(text: 'HB'),
     CustomModel(text: 'TLC'),
     CustomModel(text: 'ESR'),
     CustomModel(text: 'CRP'),
-    CustomModel(text: 'HReticuloeytes'),
+    CustomModel(text: 'Reticuloeytes'),
     CustomModel(text: 'Lymph'),
   ];
 
@@ -98,14 +96,14 @@ class _NineteenScreenState extends State<NineteenScreen> {
             setState(() {
               _hematologyModel!.HBIsEnable = !_hematologyModel!.HBIsEnable;
               itemModel[0].isSelected = _hematologyModel!.HBIsEnable;
-              if (!_hematologyModel!.LymphIsEnable) {
+              if (!_hematologyModel!.HBIsEnable) {
                 _hematologyController1.clear();
                 itemModel[0].prority = 0;
               }
             });
           },
           onChange: (text) {
-            itemModel[0].prority = text as int;
+            itemModel[0].prority = int.parse(text);
           },
           isEnable: _hematologyModel!.HBIsEnable,
           controller: _hematologyController1,
@@ -116,14 +114,14 @@ class _NineteenScreenState extends State<NineteenScreen> {
             setState(() {
               _hematologyModel!.TLCIsEnable = !_hematologyModel!.TLCIsEnable;
               itemModel[1].isSelected = _hematologyModel!.TLCIsEnable;
-              if (!_hematologyModel!.LymphIsEnable) {
+              if (!_hematologyModel!.TLCIsEnable) {
                 _hematologyController2.clear();
                 itemModel[1].prority = 0;
               }
             });
           },
           onChange: (text) {
-            itemModel[1].prority = text as int;
+            itemModel[1].prority = int.parse(text);
           },
           isEnable: _hematologyModel!.TLCIsEnable,
           controller: _hematologyController2,
@@ -134,14 +132,14 @@ class _NineteenScreenState extends State<NineteenScreen> {
             setState(() {
               _hematologyModel!.ESRIsEnable = !_hematologyModel!.ESRIsEnable;
               itemModel[2].isSelected = _hematologyModel!.ESRIsEnable;
-              if (!_hematologyModel!.LymphIsEnable) {
+              if (!_hematologyModel!.ESRIsEnable) {
                 _hematologyController3.clear();
                 itemModel[2].prority = 0;
               }
             });
           },
           onChange: (text) {
-            itemModel[2].prority = text as int;
+            itemModel[2].prority = int.parse(text);
           },
           isEnable: _hematologyModel!.ESRIsEnable,
           controller: _hematologyController3,
@@ -152,14 +150,14 @@ class _NineteenScreenState extends State<NineteenScreen> {
             setState(() {
               _hematologyModel!.CRPIsEnable = !_hematologyModel!.CRPIsEnable;
               itemModel[3].isSelected = _hematologyModel!.CRPIsEnable;
-              if (!_hematologyModel!.LymphIsEnable) {
+              if (!_hematologyModel!.CRPIsEnable) {
                 _hematologyController4.clear();
                 itemModel[3].prority = 0;
               }
             });
           },
           onChange: (text) {
-            itemModel[3].prority = text as int;
+            itemModel[3].prority = int.parse(text);
           },
           isEnable: _hematologyModel!.CRPIsEnable,
           controller: _hematologyController4,
@@ -171,14 +169,14 @@ class _NineteenScreenState extends State<NineteenScreen> {
               _hematologyModel!.ReticuloeytesIsEnable =
                   !_hematologyModel!.ReticuloeytesIsEnable;
               itemModel[4].isSelected = _hematologyModel!.ReticuloeytesIsEnable;
-              if (!_hematologyModel!.LymphIsEnable) {
+              if (!_hematologyModel!.ReticuloeytesIsEnable) {
                 _hematologyController5.clear();
                 itemModel[4].prority = 0;
               }
             });
           },
           onChange: (text) {
-            itemModel[4].prority = text as int;
+            itemModel[4].prority = int.parse(text);
           },
           isEnable: _hematologyModel!.ReticuloeytesIsEnable,
           controller: _hematologyController5,
@@ -198,7 +196,7 @@ class _NineteenScreenState extends State<NineteenScreen> {
             });
           },
           onChange: (text) {
-            itemModel[5].prority = text as int;
+            itemModel[5].prority = int.parse(text);
           },
           isEnable: _hematologyModel!.LymphIsEnable,
           controller: _hematologyController6,
@@ -281,6 +279,14 @@ class _NineteenScreenState extends State<NineteenScreen> {
     ];
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () async {
+            await reorderList(itemModel);
+          },
+          icon: Icon(Icons.abc_rounded),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           width: mediaQuery.width,
@@ -473,23 +479,18 @@ class _NineteenScreenState extends State<NineteenScreen> {
                       children: [
                         CustomButton(
                           onPress: () {
-                            // Navigator.of(context).pushNamed(
-                            //   AppRoutes.twentyScreen,
-                            //   arguments: {
-                            //     'name': nameController.text.toString(),
-                            //     'date': selectedDate.toString(),
-                            //     'hematology': _hematologyModel,
-                            //     'coagulation': _coagulationModel,
-                            //     'chemistry': _chemistryModel,
-                            //     'fileImage': fileImage,
-                            //   },
-                            // );
-
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => TwentyScreen(
-                                OrderedList: reorderList(itemModel),
-                              ),
-                            ));
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.twentyScreen,
+                              arguments: {
+                                'name': nameController.text.toString(),
+                                'date': selectedDate.toString(),
+                                'hematology': _hematologyModel,
+                                'coagulation': _coagulationModel,
+                                'chemistry': _chemistryModel,
+                                'fileImage': fileImage,
+                                'list': reorderList(itemModel),
+                              },
+                            );
                           },
                           title: 'Send',
                         ),
@@ -515,14 +516,13 @@ class _NineteenScreenState extends State<NineteenScreen> {
 }
 
 List<CustomModel> reorderList(List<CustomModel> list) {
-  List<CustomModel> OrderedList = [];
+  List<CustomModel> OrderedList = list;
   OrderedList[0] = list[0];
-  for (int i = 0; i < list.length; i++) {
-    for (int j = 0; j < list.length; j++) {
-      if (OrderedList[i].prority <= list[j].prority) {
-        OrderedList[i] = list[j];
-      }
-    }
+
+  OrderedList.sort((a, b) => b.prority.compareTo(a.prority));
+  for (var i = 0; i < OrderedList.length; i++) {
+    print(
+        '${OrderedList[i].text} ${OrderedList[i].isSelected} ${OrderedList[i].prority}');
   }
   return OrderedList;
 }

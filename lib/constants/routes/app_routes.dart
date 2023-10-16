@@ -9,6 +9,6 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> routes = {
     nineteenScreen: (context) => NineteenScreen(),
-    // twentyScreen: (context) => TwentyScreen(),
+    twentyScreen: (context) => TwentyScreen(),
   };
 }

@@ -1,5 +1,6 @@
-import 'package:application/constants/appcolor.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/constant/appcolor.dart';
 
 ElevatedButton CustomButton(
     {required void Function()? onPress, required String title}) {
